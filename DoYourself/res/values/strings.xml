@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Calendar</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="firstpage">DO YOURSELF</string>
+    <string name="todo">If you don\'t walk today, you will have to run tomorrow</string>
+    <string name="add">Add Schedule</string>
+
+</resources>
