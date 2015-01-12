@@ -57,6 +57,7 @@ public class Schedule extends Activity implements OnClickListener{
 	TextView mTextView;
 	Button prevButton;
 	Button nextButton;
+	ListView List;
 
 	int thisMonth;
 	int thisYear;
@@ -81,7 +82,7 @@ public class Schedule extends Activity implements OnClickListener{
 
 		thisMonth = mCal.get(Calendar.MONTH)+1;
 		thisYear = mCal.get(Calendar.YEAR);
-		
+
 		mm = Integer.toString(thisMonth);
 		yy = Integer.toString(thisYear);
 
@@ -91,6 +92,7 @@ public class Schedule extends Activity implements OnClickListener{
 		prevButton = (Button)findViewById(R.id.prev);
 		nextButton = (Button)findViewById(R.id.next);
 		mTextView = (TextView)findViewById(R.id.thisYYYYMM);
+		List = (ListView)findViewById(R.id.list);
 
 		mTextView.setText(Integer.toString(thisYear)+"."+Integer.toString(thisMonth));
 
@@ -114,6 +116,25 @@ public class Schedule extends Activity implements OnClickListener{
 			}
 		});
 
+		List.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// TODO Auto-generated method stub
+				dd = "1";
+				mm = "1";
+				yy = "1";
+
+				Intent i = new Intent(Schedule.this,UpdateSchedule.class);
+				
+				i.putExtra("year", yy);
+				i.putExtra("month",mm );
+				i.putExtra("day", dd);
+				// Launching new Activity on selecting single List Item
+				
+				// sending data to new activity
+				startActivity(i);
+			}
+		});
 		DBmethod();
 	}
 
@@ -154,8 +175,8 @@ public class Schedule extends Activity implements OnClickListener{
 			}
 			break;
 		}
-		
-		
+
+
 	}	
 
 	//달력 셋팅
@@ -187,7 +208,7 @@ public class Schedule extends Activity implements OnClickListener{
 		mGridView = (GridView)findViewById(R.id.calGrid);
 		mGridView.setAdapter(adapter);		
 	}
-	
+
 	public void DBmethod() {
 
 		helper = new DBOpenHelper(this, "scheduler04.db", null, 1);
@@ -213,7 +234,7 @@ class DateAdapter extends BaseAdapter {
 	private Context context;
 	private ArrayList<CalData> arrData;
 	private LayoutInflater inflater;
-	
+
 	DBOpenHelper helper;
 	SQLiteDatabase db;	
 
@@ -247,7 +268,7 @@ class DateAdapter extends BaseAdapter {
 		else
 		{
 			ViewText.setText(arrData.get(position).getDay()+"");
-						
+
 			if(arrData.get(position).getDayofweek() == 1)
 			{
 				ViewText.setTextColor(Color.RED);

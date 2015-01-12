@@ -68,12 +68,13 @@ public final class R {
         public static final int week=0x7f090018;
     }
     public static final class layout {
-        public static final int addshcedule=0x7f030000;
-        public static final int firstpage=0x7f030001;
-        public static final int insert_todo=0x7f030002;
-        public static final int schedule=0x7f030003;
-        public static final int todo=0x7f030004;
-        public static final int viewitem=0x7f030005;
+        public static final int addschedule2=0x7f030000;
+        public static final int addshcedule=0x7f030001;
+        public static final int firstpage=0x7f030002;
+        public static final int insert_todo=0x7f030003;
+        public static final int schedule=0x7f030004;
+        public static final int todo=0x7f030005;
+        public static final int viewitem=0x7f030006;
     }
     public static final class menu {
         public static final int main=0x7f080000;

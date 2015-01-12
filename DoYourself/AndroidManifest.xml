@@ -33,6 +33,9 @@
         <activity
             android:name="kr.ac.pknu.doyourself.AddSchedule"
             android:label="@string/add" />
+          <activity
+            android:name="kr.ac.pknu.doyourself.UpdateSchedule"
+            android:label="@string/add" />
     </application>
 
 </manifest>
