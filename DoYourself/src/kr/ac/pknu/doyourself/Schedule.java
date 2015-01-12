@@ -3,11 +3,11 @@ package kr.ac.pknu.doyourself;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import com.example.calendar.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,11 +18,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.FrameLayout;
+import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.calendar.R;
 
 class CalData {
 	int day;
@@ -59,23 +61,16 @@ public class Schedule extends Activity implements OnClickListener{
 	int thisYear;
 	int thisDay;
 	
+
+	DBOpenHelper helper;
+	SQLiteDatabase db;
+	EditText edit_name, edit_date;	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.schedule);
-		
-		/*java 코드로 레이아웃 만들기
-		LinearLayout rootLinear = new LinearLayout(this);
-		rootLinear.setOrientation(LinearLayout.VERTICAL);
-		FrameLayout.LayoutParams rootLp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-		
-		LinearLayout calInfo = new LinearLayout(this);
-		calInfo.setOrientation(LinearLayout.HORIZONTAL);	
-		*/
-	
-		
-			
+				
 		// Calendar 객체 생성
 		mCalToday = Calendar.getInstance();
 		mCal = Calendar.getInstance();
@@ -114,6 +109,20 @@ public class Schedule extends Activity implements OnClickListener{
 			}
 		});
 		
+		
+		helper = new DBOpenHelper(this, "scheduler02.db", null, 1);
+		db = helper.getWritableDatabase();
+		
+		Cursor cursor = db.rawQuery("Select * from Schedule", null);
+		startManagingCursor(cursor);
+		
+		if(cursor.getCount() >0){
+		String[] from = {"Title","S_Date"};
+		int[] to = { android.R.id.text1, android.R.id.text2};
+		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2, cursor, from, to);
+		ListView list = (ListView)findViewById(R.id.list);
+		list.setAdapter(adapter);
+		}
 	}
 	
 	public void onClick(View v) {

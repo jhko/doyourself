@@ -16,7 +16,7 @@ public class DBOpenHelper extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
-		db.execSQL("CREATE TABLE Schedule ( _Number INTEGER PRIMARY KEY AUTOINCREMENT, S_Date TEXT, E_Date Text , Title Text, Content TEXT, Category TEXT);");
+		db.execSQL("CREATE TABLE Schedule ( _id INTEGER PRIMARY KEY AUTOINCREMENT, S_Date TEXT, E_Date Text , Title Text, Content TEXT, Category TEXT, Flag TEXT);");
 		
 	}
 

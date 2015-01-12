@@ -101,7 +101,7 @@ public class AddSchedule extends Activity {
 		addButton.setOnClickListener(new OnClickListener(){ 
 			public void onClick(View v){
 
-				DBOpenHelper helper = new DBOpenHelper(AddSchedule.this, "scheduler.db", null, 1);
+				DBOpenHelper helper = new DBOpenHelper(AddSchedule.this, "scheduler02.db", null, 1);
 				SQLiteDatabase db = helper.getWritableDatabase();
 
 				String stitle = title.getText().toString();
