@@ -101,13 +101,13 @@ public class AddSchedule extends Activity {
 		addButton.setOnClickListener(new OnClickListener(){ 
 			public void onClick(View v){
 
-				DBOpenHelper helper = new DBOpenHelper(AddSchedule.this, "scheduler02.db", null, 1);
+				DBOpenHelper helper = new DBOpenHelper(AddSchedule.this, "scheduler03.db", null, 1);
 				SQLiteDatabase db = helper.getWritableDatabase();
 
 				String stitle = title.getText().toString();
 				String scontent = content.getText().toString();
-
-				db.execSQL("INSERT INTO Schedule (S_Date, E_Date, Title, Content, Category) VALUES ('" + yymmdd + "','" + yymmdd + "','" + stitle + "', '" + scontent + "', '1');");
+				
+				db.execSQL("INSERT INTO Schedule (S_YYYY, S_MM, S_DD, E_Date, Title, Content, Category) VALUES ('" + mYear + "'," + "'" + mMonth + "'," + "'" + mDay + "','" + yymmdd + "','" + stitle + "', '" + scontent + "', '1');");
 
 				Toast.makeText(getApplicationContext(),"added", Toast.LENGTH_SHORT).show();
 				finish();
