@@ -42,6 +42,7 @@ class CalData {
 	public int getDayofweek() {
 		return dayofweek;
 	}
+
 }
 
 
@@ -113,19 +114,7 @@ public class Schedule extends Activity implements OnClickListener{
 			}
 		});
 
-		helper = new DBOpenHelper(this, "scheduler03.db", null, 1);
-		db = helper.getWritableDatabase();
-		
-		Cursor cursor = db.rawQuery("Select * from Schedule where S_YYYY = '"+ yy + "' and S_MM = '" + mm + "'", null);
-		startManagingCursor(cursor);
-
-		if(cursor.getCount() >0){
-			String[] from = {"Title","S_YYYY"};
-			int[] to = { android.R.id.text1, android.R.id.text2};
-			SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2, cursor, from, to);
-			ListView list = (ListView)findViewById(R.id.list);
-			list.setAdapter(adapter);
-		}
+		DBmethod();
 	}
 
 	public void onClick(View v) {
@@ -136,6 +125,7 @@ public class Schedule extends Activity implements OnClickListener{
 				thisMonth--;
 				setCalendarDate(thisYear, thisMonth);
 				mTextView.setText(Integer.toString(thisYear)+"."+Integer.toString(thisMonth));
+				DBmethod();
 			}
 			else
 			{
@@ -143,6 +133,7 @@ public class Schedule extends Activity implements OnClickListener{
 				thisMonth = 12;
 				setCalendarDate(thisYear, thisMonth);
 				mTextView.setText(Integer.toString(thisYear)+"."+Integer.toString(thisMonth));
+				DBmethod();
 			}
 			break;
 		case R.id.next:
@@ -151,6 +142,7 @@ public class Schedule extends Activity implements OnClickListener{
 				thisMonth++;
 				setCalendarDate(thisYear, thisMonth);
 				mTextView.setText(Integer.toString(thisYear)+"."+Integer.toString(thisMonth));
+				DBmethod();
 			}
 			else
 			{
@@ -158,9 +150,12 @@ public class Schedule extends Activity implements OnClickListener{
 				thisMonth = 1;
 				setCalendarDate(thisYear, thisMonth);
 				mTextView.setText(Integer.toString(thisYear)+"."+Integer.toString(thisMonth));
+				DBmethod();
 			}
 			break;
 		}
+		
+		
 	}	
 
 	//달력 셋팅
@@ -191,6 +186,24 @@ public class Schedule extends Activity implements OnClickListener{
 
 		mGridView = (GridView)findViewById(R.id.calGrid);
 		mGridView.setAdapter(adapter);		
+	}
+	
+	public void DBmethod() {
+
+		helper = new DBOpenHelper(this, "scheduler04.db", null, 1);
+		db = helper.getWritableDatabase();
+
+		Cursor cursor = db.rawQuery("Select * from Schedule", null);
+		startManagingCursor(cursor);
+
+		if(cursor.getCount() >0){
+			String[] from = {"Title","S_Date"};
+			int[] to = { android.R.id.text1, android.R.id.text2};
+			SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2, cursor, from, to);
+			ListView list = (ListView)findViewById(R.id.list);
+			list.setAdapter(adapter);
+		}
+
 	}
 
 }
