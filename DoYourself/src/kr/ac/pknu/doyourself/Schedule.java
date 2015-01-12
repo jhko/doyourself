@@ -124,7 +124,7 @@ public class Schedule extends Activity implements OnClickListener{
 		list.setAdapter(adapter);
 		}
 	}
-	
+	      
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.prev:
